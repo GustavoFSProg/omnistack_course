@@ -2,16 +2,17 @@
   "name": "omni-stack",
   "version": "1.0.0",
   "description": "",
-  "main": "../omnistack-curso/backend/index.js",
+  "main": "../omnistack_course/backend/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon eslint ../omnistack-curso/backend/index.js"
+    "start": "nodemon eslint backend/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "babel": "^6.23.0",
+    "cors": "^2.8.5",
     "eslint": "^6.8.0",
     "express": "^4.17.1",
     "knex": "^0.21.0",
