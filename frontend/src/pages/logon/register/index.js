@@ -25,7 +25,7 @@ export default function Register() {
           <input placeholder="Whatsapp"></input>
           <div className="input-group">
             <input type="text" placeholder="Cidade"></input>
-            <input type="text" placeholder="UF" width="80"></input>
+            <input type="text" placeholder="UF" style={{ width: 80 }}></input>
           </div>
 
           <button className="button" type="submit">
