@@ -7,7 +7,7 @@ app.use(cors({}))
 app.use(express.json({}))
 app.use(routes)
 
-port = 3008
+port = 4000
 app.listen(port)
 
 console.log('API rodando na porta ' + port)
