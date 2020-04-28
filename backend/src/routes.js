@@ -13,7 +13,7 @@ routes.post('/incidents', incidentsController.create)
 routes.get('/incidents', incidentsController.get)
 routes.delete('/incidents', incidentsController.delete)
 
-routes.get('/profiles', profileController.index)
+routes.get('/profile', profileController.index)
 
 routes.post('/session', sessionController.post)
 

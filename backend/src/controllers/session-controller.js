@@ -10,7 +10,7 @@ module.exports = {
     if (!ong) {
       return res.status(401).send('ERRO ong não encontrada')
     } else {
-      return res.send(ong)
+      return res.send(ong.name)
     }
   },
 }

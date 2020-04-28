@@ -1,7 +1,11 @@
 import axios from 'axios'
 
-const api = axios.create({
-  baseURL: 'http://localhost:4000/',
-})
+axios.defaults.baseURL = 'http://localhost:4000/'
+axios.interceptors.request.use(
+  (config) => config,
+  (error) => Promise.reject(error)
+)
+
+const api = axios
 
 export default api

@@ -18,14 +18,14 @@ export default function Logon() {
     //  const id = '51653cc8'
 
     try {
-      const data = await api.post('session', { id })
+      const { data } = await api.post('session', { id })
       // const jsonData = JSON.parse(data)
 
-      console.log(data.data)
-      alert(data.data)
+      console.log(data)
+      alert(data)
 
       localStorage.setItem('ongId', id)
-      localStorage.setItem('ongName', data.data)
+      localStorage.setItem('ongName', data)
 
       history.push('/profile')
     } catch (error) {
