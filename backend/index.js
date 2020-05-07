@@ -1,13 +1,17 @@
-const express = require('express')
-const routes = require('../backend/src/routes')
+const express = require("express");
+const cors = require("cors");
+const routes = require("./src/routes");
 
-const app = express()
+const app = express();
 
-app.use(express.json({}))
-app.use(routes)
+app.use(cors());
+app.use(express.json());
 
-app.listen(4001)
+app.use(routes);
 
-console.log('API rodando na porta 3000')
+const port = 2000;
+app.listen(port);
 
-module.exports = app
+console.log("API rodando na porta " + port);
+
+module.exports = app;
