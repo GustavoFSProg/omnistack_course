@@ -15,7 +15,7 @@ export default function Logon() {
   async function handleLogin(e) {
     e.preventDefault()
 
-    //  const id = '51653cc8'
+    //  const id = 'c924b380'
 
     try {
       const { data } = await api.post('session', { id })
@@ -38,7 +38,7 @@ export default function Logon() {
       <section className="form">
         <img src={logoImage} alt="logo"></img>
         <form onSubmit={handleLogin}>
-          <h1>Faça seu Logon - 51653cc8 </h1>
+          <h1>Faça seu Logon - c924b380 </h1>
           <input
             value={id}
             onChange={(e) => setId(e.target.value)}

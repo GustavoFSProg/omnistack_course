@@ -4,31 +4,10 @@ import { FiPower, FiTrash2 } from 'react-icons/fi'
 // eslint-disable-next-line import/no-unresolved
 import { Link } from 'react-router-dom'
 import logoImage from '../../../assets/logo.svg'
-import '../profile/style.css'
 
 export default (props) => {
   const ongName = localStorage.getItem('ongName')
   const { incidents } = props
-
-  // //  --------------------alteraçções--------------
-  // const ongId = localStorage.getItem('ongId')
-
-  // async function handleDeleteIncident(id) {
-  //   try {
-  //     await api.delete('/incidents/' + id, {
-  //       headers: {
-  //         authorization: ongId,
-  //       },
-  //     })
-  //     // setIncidents(incidents.filter((incident) => incidents.id !== id))
-
-  //     alert('Incident deletado com sucesso!')
-  //   } catch (error) {
-  //     alert('ERRO do Front!')
-  //   }
-  // }
-
-  // //  --------------------alteraçções--------------
 
   return (
     <div className="profile-container">

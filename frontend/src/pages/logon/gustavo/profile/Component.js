@@ -1,34 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+import { Link } from 'react-router-dom'
+import './style.css'
 // eslint-disable-next-line import/no-unresolved
 import { FiPower, FiTrash2 } from 'react-icons/fi'
 // eslint-disable-next-line import/no-unresolved
-import { Link } from 'react-router-dom'
 import logoImage from '../../../assets/logo.svg'
-import '../profile/style.css'
+import api from '../../../services/api'
 
 export default (props) => {
   const ongName = localStorage.getItem('ongName')
+  // eslint-disable-next-line no-unused-vars
+  const ongId = localStorage.getItem('ongId')
+
   const { incidents } = props
 
-  // //  --------------------alteraçções--------------
-  // const ongId = localStorage.getItem('ongId')
+  // const [incidents, setIncidents] = useState([])
+  async function handleDeleteIncident(id) {
+    try {
+      await api.delete('/incidents/' + id, {
+        headers: {
+          authorization: ongId,
+        },
+      })
+      // setIncidents(incidents.filter((incident) => incidents.id !== id))
 
-  // async function handleDeleteIncident(id) {
-  //   try {
-  //     await api.delete('/incidents/' + id, {
-  //       headers: {
-  //         authorization: ongId,
-  //       },
-  //     })
-  //     // setIncidents(incidents.filter((incident) => incidents.id !== id))
-
-  //     alert('Incident deletado com sucesso!')
-  //   } catch (error) {
-  //     alert('ERRO do Front!')
-  //   }
-  // }
-
-  // //  --------------------alteraçções--------------
+      alert('Incident deletado com sucesso!')
+    } catch (error) {
+      alert('ERRO do Front!')
+    }
+  }
 
   return (
     <div className="profile-container">
@@ -52,9 +53,17 @@ export default (props) => {
             <strong>Descrição</strong>
             <p>{incident.description}</p>
             <strong>Valor:</strong>
-            <p>{incident.value}</p>
+            <p>
+              {Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              }).format(incident.value)}
+            </p>
 
-            <button type="button">
+            <button
+              type="button"
+              onClick={() => handleDeleteIncident(incident.id)}
+            >
               <FiTrash2 size={20} color="#a8a8b3" />
             </button>
           </li>
