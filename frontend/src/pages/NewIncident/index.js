@@ -1,10 +1,33 @@
-import React from 'react'
+import React, { useState, useHistory } from 'react'
 import '../NewIncident/style.css'
 import logoImage from '../../assets/logo.svg'
 import { Link } from 'react-router-dom'
 import { FiArrowLeft } from 'react-icons/fi'
+import api, { getIncidentsByOngId } from '../../services/api'
 
 export default function NewIncident() {
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [value, setValue] = useState('')
+
+  const ong_id = localStorage.getItem('ongId')
+
+  async function handleNewIncident(e) {
+    e.preventDefault()
+
+    const data = { title, description, value, ong_id }
+
+    try {
+      await api.post('/incidents', data)
+
+      alert('Caso Cadastrado com sucesso!')
+
+      window.location('/')
+    } catch (error) {
+      alert('Erro no cadastro!!')
+    }
+  }
+
   return (
     <div className="new-incident-container">
       <div className="content">
@@ -19,11 +42,24 @@ export default function NewIncident() {
           </Link>
         </section>
 
-        <form>
-          <input type="text" placeholder="Titulo do caso"></input>
-          <textarea placeholder="Descrição "></textarea>
-          <input type="text" placeholder="Valor em reais:"></input>
-
+        <form onSubmit={handleNewIncident}>
+          <input
+            type="text"
+            placeholder="Titulo do caso"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+          ></input>
+          <textarea
+            placeholder="Descrição "
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
+          ></textarea>
+          <input
+            type="text"
+            placeholder="Valor em reais:"
+            onChange={(e) => setValue(e.target.value)}
+            value={value}
+          ></input>
           <button className="button" type="submit">
             Cadastrar
           </button>

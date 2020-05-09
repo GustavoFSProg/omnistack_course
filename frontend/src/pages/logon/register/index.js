@@ -28,6 +28,7 @@ export default function Register() {
       alert('Erro no cadastro!!')
     }
   }
+  
   return (
     <div className="register-container">
       <div className="content">

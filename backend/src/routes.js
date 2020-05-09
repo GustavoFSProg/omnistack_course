@@ -10,6 +10,7 @@ routes.get('/ongs', ongController.get)
 routes.post('/incidents', incidentsController.create)
 routes.get('/incidents', incidentsController.get)
 routes.get('/incidents/:id', incidentsController.getById)
+routes.get('/inc/:id', incidentsController.getByIncident)
 routes.delete('/incidents/:id', incidentsController.delete)
 
 routes.get('/profile/:id', profileController.getIncidentsByOngId)
@@ -17,4 +18,3 @@ routes.get('/profile/:id', profileController.getIncidentsByOngId)
 routes.post('/session', sessionController.post)
 
 module.exports = routes
-
