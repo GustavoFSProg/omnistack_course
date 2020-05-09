@@ -2,8 +2,7 @@ const connection = require('../database/connection')
 
 module.exports = {
   async create(req, res) {
-    const { title, description, value } = req.body
-    const ong_id = req.headers.authorization
+    const { title, description, value, ong_id } = req.body
 
     const [id] = await connection('incidents').insert({
       title,
@@ -29,6 +28,17 @@ module.exports = {
       .where('ong_id', ong_id)
     // .first()
     return res.status(200).send(incidents)
+    console.log('passou por aqui')
+  },
+
+  async getByIncident(req, res) {
+    const id = req.params.id
+
+    const incidents = await connection('incidents')
+      .where('id', id)
+      .select('*')
+      .first()
+    return res.status(200).send(incidents)
   },
 
   async delete(req, res) {
@@ -48,11 +58,9 @@ module.exports = {
       // if (incidents.ong_id != ong_id) return
       // res.status(401).send('ERRO, Operation not permited!')
 
-      await connection('incidents').where('id', id).delete()
-
-      return res
-        .status(204)
-        .json({ message: 'Incidents deletado com sucesso!' })
+      if (await connection('incidents').where('id', id).delete()) {
+        return res.status(204).json('Incident deletado com sucesso!')
+      }
     } catch (error) {
       return res.status(400).send('ERROS ao deletar do back!!')
     }

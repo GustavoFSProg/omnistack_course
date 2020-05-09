@@ -1,33 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // eslint-disable-next-line import/no-unresolved
 import { FiPower, FiTrash2 } from 'react-icons/fi'
 // eslint-disable-next-line import/no-unresolved
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import logoImage from '../../../assets/logo.svg'
 import '../profile/style.css'
+import api from '../../../services/api'
+import '../../logon/global.css'
 
 export default (props) => {
+  const history = useHistory()
+
   const ongName = localStorage.getItem('ongName')
   const { incidents } = props
+  const ongId = localStorage.getItem('ongId')
 
   // //  --------------------alteraçções--------------
-  // const ongId = localStorage.getItem('ongId')
 
-  // async function handleDeleteIncident(id) {
-  //   try {
-  //     await api.delete('/incidents/' + id, {
-  //       headers: {
-  //         authorization: ongId,
-  //       },
-  //     })
-  //     // setIncidents(incidents.filter((incident) => incidents.id !== id))
+  async function handleDeleteIncident(id) {
+    try {
+      await api.delete('/incidents/' + id, {
+        headers: {
+          authorization: ongId,
+        },
+      })
 
-  //     alert('Incident deletado com sucesso!')
-  //   } catch (error) {
-  //     alert('ERRO do Front!')
-  //   }
-  // }
+      //  setIncidents(incide.filter((incident) => incide.id !== id))
+      // useEffect(() => getIncidents(id), [id])
 
+      alert('Incident deletado com sucesso!')
+    } catch (error) {
+      alert('ERRO do Front!')
+    }
+  }
+
+  async function handleLogout() {
+    localStorage.clear()
+
+    // history.push('/')
+    window.location = '/'
+  }
+  async function Redirect() {
+    window.location = '/incidents'
+  }
   // //  --------------------alteraçções--------------
 
   return (
@@ -35,10 +50,10 @@ export default (props) => {
       <header>
         <img src={logoImage} alt="Be the Hero" />
         <span>{`Ben Vinda,${ongName}!`}</span>
-        <Link className="button" to="/incident/new">
+        <Link type="button" className="button" onClick={Redirect}>
           Cadastrar novo Caso
         </Link>
-        <button type="button">
+        <button type="button" onClick={handleLogout}>
           <FiPower size={18} color="#E02041" />
         </button>
       </header>
@@ -54,7 +69,10 @@ export default (props) => {
             <strong>Valor:</strong>
             <p>{incident.value}</p>
 
-            <button type="button">
+            <button
+              type="button"
+              onClick={() => handleDeleteIncident(incident.id)}
+            >
               <FiTrash2 size={20} color="#a8a8b3" />
             </button>
           </li>
