@@ -15,9 +15,20 @@ module.exports = {
   },
 
   async get(req, res) {
-    const incidents = await connection('incidents').select('*')
+    try {
+      const data = await connection('incidents')
+        .join('ongs', 'incidents.ong_id', '=', 'ongs.id')
+        .select(
+          'incidents.title',
+          'incidents.value',
+          'incidents.description',
+          'ongs.name AS ong_name'
+        )
 
-    return res.status(200).json({ incidents })
+      return res.status(200).send(data)
+    } catch (error) {
+      return res.status(400).send({ error })
+    }
   },
 
   async getById(req, res) {
@@ -28,7 +39,6 @@ module.exports = {
       .where('ong_id', ong_id)
     // .first()
     return res.status(200).send(incidents)
-    console.log('passou por aqui')
   },
 
   async getByIncident(req, res) {
