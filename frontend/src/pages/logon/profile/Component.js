@@ -24,10 +24,7 @@ export default (props) => {
           authorization: ongId,
         },
       })
-
-      //  setIncidents(incide.filter((incident) => incide.id !== id))
-      // useEffect(() => getIncidents(id), [id])
-
+      history.push('/profile')
       alert('Incident deletado com sucesso!')
     } catch (error) {
       alert('ERRO do Front!')
@@ -67,7 +64,12 @@ export default (props) => {
             <strong>Descrição</strong>
             <p>{incident.description}</p>
             <strong>Valor:</strong>
-            <p>{incident.value}</p>
+            <p>
+              {Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              }).format(incident.value)}
+            </p>
 
             <button
               type="button"

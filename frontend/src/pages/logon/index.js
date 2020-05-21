@@ -9,20 +9,13 @@ import api from '../../services/api'
 
 export default function Logon() {
   const [id, setId] = useState('')
-  console.log(id)
   const history = useHistory()
 
   async function handleLogin(e) {
     e.preventDefault()
 
-    //  const id = 'c924b380'
-
     try {
       const { data } = await api.post('session', { id })
-      // const jsonData = JSON.parse(data)
-
-      console.log(data)
-      alert(data)
 
       localStorage.setItem('ongId', id)
       localStorage.setItem('ongName', data)
