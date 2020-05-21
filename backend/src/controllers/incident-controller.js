@@ -1,6 +1,17 @@
 const connection = require('../database/connection')
 
 module.exports = {
+  async index(req, res) {
+    const { page = 1 } = req.query
+
+    const incidents = await connection('incidents')
+      .limit(3)
+      .offset((page - 1) * 5)
+      .select('*')
+
+    return res.json(incidents)
+  },
+
   async create(req, res) {
     const { title, description, value, ong_id } = req.body
 
@@ -17,12 +28,15 @@ module.exports = {
   async get(req, res) {
     try {
       const data = await connection('incidents')
+        .limit(5)
         .join('ongs', 'incidents.ong_id', '=', 'ongs.id')
         .select(
           'incidents.title',
           'incidents.value',
           'incidents.description',
-          'ongs.name AS ong_name'
+          'ongs.name AS ong_name',
+          'ongs.city AS ong_city',
+          'ongs.uf AS ong_uf'
         )
 
       return res.status(200).send(data)
