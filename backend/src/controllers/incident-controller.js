@@ -5,11 +5,11 @@ module.exports = {
     const { page = 1 } = req.query
 
     const incidents = await connection('incidents')
-      .limit(3)
+      .limit(5)
       .offset((page - 1) * 5)
       .select('*')
 
-    return res.json(incidents)
+    return res.send(incidents)
   },
 
   async create(req, res) {
@@ -31,6 +31,7 @@ module.exports = {
         .limit(5)
         .join('ongs', 'incidents.ong_id', '=', 'ongs.id')
         .select(
+          'incidents.id',
           'incidents.title',
           'incidents.value',
           'incidents.description',
@@ -83,7 +84,9 @@ module.exports = {
       // res.status(401).send('ERRO, Operation not permited!')
 
       if (await connection('incidents').where('id', id).delete()) {
-        return res.status(204).json('Incident deletado com sucesso!')
+        return res
+          .status(200)
+          .send({ message: 'Incident deletado com sucesso!' })
       }
     } catch (error) {
       return res.status(400).send('ERROS ao deletar do back!!')
